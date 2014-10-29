@@ -6,11 +6,16 @@
          backupGlobals="false"
          colors="true"
          bootstrap="bootstrap.php"
+         verbose="true"
 >
     <testsuites>
         <testsuite name="Project Test Suite">
             <directory>../src/Nachinius/**/Tests/**</directory>
         </testsuite>
     </testsuites>
+
+    <logging>
+      <log type="coverage-html" target="../coverage" highlight="true"/>
+    </logging>
 
 </phpunit>

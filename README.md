@@ -4,4 +4,4 @@
     php app/app.php
 
 # Test
-    phpunit -c app/
+    vendor/bin/phpunit -c app/
