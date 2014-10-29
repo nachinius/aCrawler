@@ -12,7 +12,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-
 class LocationCommand extends Command
 {
 
@@ -44,6 +43,11 @@ class LocationCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        
+        // get html
+        // html->dom
+        // dom->filtercss
+        // grab data from table
+        // to json
+        // write to file
     }
 }
