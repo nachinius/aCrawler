@@ -18,3 +18,9 @@ A playing project (no clear objective), except to quickly try some technologies.
 ### Test
 
     vendor/bin/phpunit -c app/
+
+
+### Install
+
+    composer install
+    
