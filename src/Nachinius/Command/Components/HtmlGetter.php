@@ -5,7 +5,13 @@ namespace Nachinius\Command\Components;
 class HtmlGetter {
     
     private $cache = NULL;
+    private $httpGetter = NULL;
     
+    /**
+     * 
+     * @param HttpGetter $httpGetter
+     * @param string $cache
+     */
     public function __construct($httpGetter, $cache = NULL) {
         $this->httpGetter = $httpGetter;
         $this->cache = $cache;

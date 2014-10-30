@@ -11,6 +11,8 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Nachinius\Command\Components\HtmlGetter;
+use Nachinius\Command\Components\HttpGetter;
 
 class LocationCommand extends Command
 {
@@ -43,6 +45,10 @@ class LocationCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $httpGetter = new HttpGetter();
+        $htmlGetter = new HtmlGetter($httpGetter);
+        
+        
         // get html
         // html->dom
         // dom->filtercss
