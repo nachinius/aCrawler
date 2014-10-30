@@ -18,8 +18,12 @@ class Cache {
      * 
      * @param string $dir
      */
-    public function __construct($dir) {
+    public function __construct($dir, Filesystem $fs = NULL) {
         $this->workspace = $dir;
+        if(empty($fs)) {
+            $fs = new Filesystem();
+        }
+        $this->fs = $fs;
     }
     
     /**
@@ -27,8 +31,8 @@ class Cache {
      * is going to be stored, if not present.
      */
     public function prepare() {
-        if (file_exists($this->workspace) === false) {
-            mkdir($this->workspace, 0700, true);
+        if ($this->fs->exists($this->workspace) === false) {
+            $this->fs->mkdir($this->workspace, 0700);
         }
     }
     
