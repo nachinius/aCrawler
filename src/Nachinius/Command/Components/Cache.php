@@ -42,10 +42,18 @@ class Cache {
      * @param string $key
      */
     public function keyToFilename($key) {
-        
+        $parts = split('/', $key);
+        if(count($parts)>1) {
+            $last = array_pop($parts);
+            $last = $last.'-';
+        } else {
+            $last = '';
+        }
+        return $last.md5($key);
     }
     
     public function set($key, $content) {
+        
     }
     
     public function get($key) {
