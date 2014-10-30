@@ -9,7 +9,7 @@ A playing project (no clear objective), except to quickly try some technologies.
     - filesystem
     - dependency injection
 - unit test with vfsStream
-- ...
+- phpunit coverage
 
 ### Run 
 
