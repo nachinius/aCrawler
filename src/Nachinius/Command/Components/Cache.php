@@ -1,61 +1,90 @@
 <?php
-
 namespace Nachinius\Command\Components;
 
 use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Cache to the filesystem, one key per filename.
- * 
- * @author ignacio
  *
+ * @author ignacio
+ *        
  */
-class Cache {
-    
-    private $workspace = NULL;
-    
+class Cache
+{
+
     /**
-     * 
-     * @param string $dir
+     * address inside filesystem to store cached data
+     *
+     * @var string
      */
-    public function __construct($dir, Filesystem $fs = NULL) {
-        $this->workspace = $dir;
-        if(empty($fs)) {
+    private $workspace = NULL;
+
+    /**
+     *
+     * @var Filesystem
+     */
+    private $fs = NULL;
+
+    /**
+     *
+     * @param string $dir            
+     * @param Filesystem $fs            
+     */
+    public function __construct($dir, Filesystem $fs = NULL)
+    {
+        $this->workspace = rtrim($dir, '/');
+        if (empty($fs)) {
             $fs = new Filesystem();
         }
         $this->fs = $fs;
     }
-    
+
     /**
      * Create the directory in which the cache
      * is going to be stored, if not present.
      */
-    public function prepare() {
+    public function prepare()
+    {
         if ($this->fs->exists($this->workspace) === false) {
             $this->fs->mkdir($this->workspace, 0700);
         }
     }
-    
+
     /**
      * Transform the $key to a filename
-     * 
-     * @param string $key
+     *
+     * @param string $key            
      */
-    public function keyToFilename($key) {
+    public function keyToFilename($key)
+    {
         $parts = split('/', $key);
-        if(count($parts)>1) {
+        if (count($parts) > 1) {
             $last = array_pop($parts);
-            $last = $last.'-';
+            $last = $last . '-';
         } else {
             $last = '';
         }
-        return $last.md5($key);
+        return $last . md5($key);
     }
-    
-    public function set($key, $content) {
-        
+
+    public function getFullPath($key)
+    {
+        return $this->workspace . DIRECTORY_SEPARATOR . $this->keyToFilename($key);
     }
-    
-    public function get($key) {
+
+    public function set($key, $content)
+    {
+        $path = $this->getFullPath($key);
+        file_put_contents($path, $content);
+    }
+
+    public function get($key)
+    {
+        $path = $this->getFullPath($key);
+        if($this->fs->exists($path)) {
+            return file_get_contents($path);
+        } else {
+            return NULL;
+        }
     }
 }

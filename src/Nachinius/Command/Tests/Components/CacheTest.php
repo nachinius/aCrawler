@@ -71,7 +71,7 @@ class CacheTest extends PHPUnit_Framework_TestCase
     {
         return array(
             array('1','kjsadfjksadf'),
-            array('dsfsadf',234234)
+            array('primer','textinserted')
         );
     }
 
