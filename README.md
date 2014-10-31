@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/nachinius/aCrawler.svg?branch=master)](https://travis-ci.org/nachinius/aCrawler)
+[![Coverage Status](https://coveralls.io/repos/nachinius/aCrawler/badge.png)](https://coveralls.io/r/nachinius/aCrawler)
 
 ### purpose
 A playing project (no clear objective), except to quickly try some technologies.
