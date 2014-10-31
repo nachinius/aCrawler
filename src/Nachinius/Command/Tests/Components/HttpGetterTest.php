@@ -12,14 +12,24 @@ class HttpGetterTest extends PHPUnit_Framework_TestCase
         //$this->root = vfsStream::setup('root');
     }
 
-    public function testGet() {
-        
-        /* $httpGetter = new HttpGetter();
-        
-        $html = $httpGetter->get('http://www.google.com');
-        
-        $this->assertNotEmpty($html); */
+    
+    public function testGetWithFopen() {
+    
+        $url = 'http://www.google.com';
+    
+        $httpGetter = new HttpGetter();
+    
+        $html = $httpGetter->getWithFopen($url);
+        $this->assertNotEmpty($html);
     }
     
+    public function testGet() {
+        $url = 'http://www.google.com';
+        
+        $httpGetter = new HttpGetter();
+        
+        $html = $httpGetter->get($url);
+        $this->assertNotEmpty($html);
+    }
 }
 

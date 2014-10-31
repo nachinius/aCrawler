@@ -33,9 +33,6 @@ class Cache
     public function __construct($dir, Filesystem $fs = NULL)
     {
         $this->workspace = rtrim($dir, '/');
-        if (empty($fs)) {
-            $fs = new Filesystem();
-        }
         $this->fs = $fs;
     }
 

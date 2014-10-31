@@ -112,4 +112,22 @@ HTML;
         $this->assertEquals($text, $html, 'Html is not correct');
     }
     
+    public function testIgnoreCacheWhenExceptionOnCache() {
+        $url = 'http://any.com';
+        $text = $this->getTextSample();
+        
+        $mockCache = $this->getMockCache();
+        $mockCache->expects($this->any())
+            ->method('get')
+            ->willThrowException(new Exception('unknown error'));
+        
+        $mockHttpGetter = $this->getMockHttpGetter();
+        $mockHttpGetter->expects($this->once())->method('get')->with($this->equalTo($url))->willReturn($text);
+        
+        $htmlGetter = new HtmlGetter($mockHttpGetter, $mockCache);
+        $html = $htmlGetter->execute($url);
+        
+        $this->assertEquals($text, $html, 'Html is not correct when cache throws exception');
+    }
+    
 }
