@@ -14,6 +14,5 @@ $fs = new Filesystem();
 $cache = new Cache(__DIR__.'/../data', $fs);
 
 $application = new Application();
-$application->add(new GreetCommand());
 $application->add(new LocationCommand($cache));
 $application->run();
