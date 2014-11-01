@@ -1,6 +1,6 @@
 filter:
   paths: [src/*]
-  excluded_paths: [vendor/*, test/*]
+  excluded_paths: [vendor/*, test/*, src/Nachinius/Command/Tests/*]
 before_commands:
   - 'composer install --dev'
 tools:
@@ -13,10 +13,10 @@ tools:
   php_pdepend: true
   php_loc:
     enabled: true
-    excluded_dirs: [vendor, tests]
+    excluded_dirs: [vendor, tests, src/Nachinius/Command/Tests/*]
   php_cpd:
     enabled: false
-    excluded_dirs: [vendor, tests]
+    excluded_dirs: [vendor, tests, src/Nachinius/Command/Tests/*]
   php_sim: true
   php_changetracking: true
   php_cs_fixer: true

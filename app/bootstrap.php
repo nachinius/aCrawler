@@ -1,6 +1,6 @@
 <?php
 
-require_once 'vendor/autoload.php';
+require_once __DIR__.'/../vendor/autoload.php';
 
 // load src/* when followed PSR-0
 use Symfony\Component\ClassLoader\ClassLoader;

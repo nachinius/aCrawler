@@ -13,41 +13,40 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Nachinius\Command\Components\HtmlGetter;
 use Nachinius\Command\Components\HttpGetter;
+use Nachinius\Command\Components\Cache;
 
 class LocationCommand extends Command
 {
+    private $dir;
 
-    public function __construct($name = NULL)
-    {
-        parent::__construct($name);
+    public function __construct(Cache $cache = NULL) {
+        $this->cache = $cache;
+        parent::__construct();
     }
-
+    
     protected function configure()
     {
-        $this->setName('get:location')->setDescription('Get locations')
-//         ->addArgument(
-//             'name',
-//             InputArgument::OPTIONAL,
-//             'Who do you want to greet?'
-//         )
+        $this->setName('get')->setDescription('Get an url')
+         ->addArgument(
+             'url',
+             InputArgument::REQUIRED,
+             'URL'
+         )
 //         ->addOption(
 //             'yell',
 //             null,
 //             InputOption::VALUE_NONE,
 //             'If set, the task will yell in uppercase letters'
 //         )
-        ;;
-
-        ;
-        
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $httpGetter = new HttpGetter();
-        $htmlGetter = new HtmlGetter($httpGetter);
+        $htmlGetter = new HtmlGetter($httpGetter, $this->cache);
         
+        $html = $htmlGetter->execute($input->getArgument('url'));
         
         // get html
         // html->dom
