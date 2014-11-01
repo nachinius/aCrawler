@@ -1,7 +1,6 @@
 <?php
 use \PHPUnit_Framework_TestCase;
 use Nachinius\Command\Components\HttpGetter;
-use org\bovigo\vfs\vfsStream;
 
 class HttpGetterTest extends PHPUnit_Framework_TestCase
 {

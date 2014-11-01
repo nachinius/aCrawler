@@ -35,6 +35,9 @@ class HtmlGetter {
         }
     }
     
+    /**
+     * @param string $url
+     */
     public function execute($url) {
         $html = $this->getCache($url);
         if(empty($html)) {
