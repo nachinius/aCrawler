@@ -48,9 +48,9 @@ class Cache
     }
 
     /**
-     * Transform the $key to a filename
+     * Transform the $key to a filename.
      *
-     * @param string $key            
+     * @param string $key
      */
     public function keyToFilename($key)
     {

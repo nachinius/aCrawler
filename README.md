@@ -24,8 +24,12 @@ A playing project (no clear objective), except to quickly try some technologies.
 
     vendor/bin/phpunit -c app/
 
+### Generate Docs
+
+    vendor/bin/phpdoc -d ./src -t ./docs/api --template="clean"
 
 ### Install
 
     composer install
     
+
