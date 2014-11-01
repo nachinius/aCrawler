@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/nachinius/aCrawler.svg?branch=master)](https://travis-ci.org/nachinius/aCrawler)
-[![Coverage Status](https://coveralls.io/repos/nachinius/aCrawler/badge.png?branch=master)](https://coveralls.io/r/nachinius/aCrawler?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/nachinius/aCrawler/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/nachinius/aCrawler/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/nachinius/aCrawler/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/nachinius/aCrawler/?branch=master)
 
 ### purpose
