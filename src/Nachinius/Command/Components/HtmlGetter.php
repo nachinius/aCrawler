@@ -2,48 +2,73 @@
 
 namespace Nachinius\Command\Components;
 
+/**
+ * Obtains a text given an URI.
+ * 
+ * Obtains a text given an URI either from an external
+ * resource or from a cache.
+ * If not previously in cache, it fallbacks to an external
+ * resource and then saves it into cache.
+ * 
+ * @author ignacio
+ *
+ */
 class HtmlGetter {
     
     private $cache = NULL;
-    private $httpGetter = NULL;
+    private $getter = NULL;
     
     /**
      * 
-     * @param HttpGetter $httpGetter
-     * @param string $cache
+     * @param getter $getter (must implement ->get($key))
+     * @param Cache $cache (optional) (must implement ->set($key, content) and ->get($key)
      */
-    public function __construct($httpGetter, $cache = NULL) {
-        $this->httpGetter = $httpGetter;
+    public function __construct($getter, $cache = NULL) {
+        $this->getter = $getter;
         $this->cache = $cache;
     }
     
-    public function setCache($url, $html) {
+    /**
+     * @param string $key key to assign
+     * @param string $content content to store
+     */
+    public function setCache($key, $content) {
         if(!empty($this->cache)) {
-            $this->cache->set($url, $html);
+            $this->cache->set($key, $content);
         }
     }
     
-    public function getCache($url) {
+    /**
+     * Obtain cache identified by $key
+     * 
+     * @param string $key
+     */
+    public function getCache($key) {
         if(empty($this->cache)) {
             return '';
         }
         
         try {
-            return $this->cache->get($url);
+            return $this->cache->get($key);
         } catch (\Exception $e) {
             return '';
         }
     }
     
     /**
+     * Obtain content of $url.
+     * 
+     * Try to use cache or fallback to getter
+     * 
      * @param string $url
+     * @return string 
      */
     public function execute($url) {
-        $html = $this->getCache($url);
-        if(empty($html)) {
-            $html = $this->httpGetter->get($url);
+        $content = $this->getCache($url);
+        if(empty($content)) {
+            $content = $this->getter->get($url);
         }
-        $this->setCache($url, $html);
-        return $html;
+        $this->setCache($url, $content);
+        return $content;
     }
 }

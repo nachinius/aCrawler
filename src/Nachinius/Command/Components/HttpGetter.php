@@ -1,6 +1,11 @@
 <?php
 namespace Nachinius\Command\Components;
 
+/**
+ * 
+ * @author ignacio
+ *
+ */
 class HttpGetter
 {
 

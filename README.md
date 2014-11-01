@@ -13,6 +13,8 @@ A playing project (no clear objective), except to quickly try some technologies.
     - dependency injection
 - unit test with vfsStream
 - phpunit coverage
+- coveralls
+- scrutinizer
 
 ### Run 
 
