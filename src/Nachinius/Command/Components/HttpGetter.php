@@ -2,6 +2,7 @@
 namespace Nachinius\Command\Components;
 
 /**
+ * Obtain the content of an external $url.
  * 
  * @author ignacio
  *
@@ -9,6 +10,7 @@ namespace Nachinius\Command\Components;
 class HttpGetter
 {
 
+    
     public function getWithCurl($url)
     {
         $ch = curl_init();

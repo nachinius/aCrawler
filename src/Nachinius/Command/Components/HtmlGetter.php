@@ -29,6 +29,8 @@ class HtmlGetter {
     }
     
     /**
+     * Set cache $key to have $content
+     * 
      * @param string $key key to assign
      * @param string $content content to store
      */
