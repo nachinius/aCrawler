@@ -17,7 +17,11 @@ use Nachinius\Command\Components\Cache;
 
 class LocationCommand extends Command
 {
-    private $dir;
+    /**
+     * 
+     * @var Cache
+     */
+    private $cache;
 
     public function __construct(Cache $cache = NULL) {
         $this->cache = $cache;
@@ -46,9 +50,9 @@ class LocationCommand extends Command
         $httpGetter = new HttpGetter();
         $htmlGetter = new HtmlGetter($httpGetter, $this->cache);
         
+        // get html
         $html = $htmlGetter->execute($input->getArgument('url'));
         
-        // get html
         // html->dom
         // dom->filtercss
         // grab data from table
