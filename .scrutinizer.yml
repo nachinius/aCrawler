@@ -1,11 +1,11 @@
 filter:
   paths: [src/*]
-  excluded_paths: [vendor/*, tests/*]
+  excluded_paths: [vendor/*, test/*]
 before_commands:
   - 'composer install --dev'
 tools:
   external_code_coverage: 
-    timeout: 600
+    timeout: 300
   php_mess_detector: true
   php_code_sniffer: true
   sensiolabs_security_checker: true
@@ -17,3 +17,13 @@ tools:
   php_cpd:
     enabled: true
     excluded_dirs: [vendor, tests]
+  php_sim: true
+  php_changetracking: true
+  php_cs_fixer: true
+  php_analyzer: true
+  sensiolabs_security_checker: true
+checks:
+  php:
+    code_rating: true
+    duplication: true
+
