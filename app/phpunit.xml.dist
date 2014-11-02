@@ -20,10 +20,7 @@
     
     <filter>
       <whitelist processUncoveredFilesFromWhitelist="true">
-        <directory suffix=".php">../src/Nachinius/Command</directory>
-        <exclude>
-          <directory>../src/Nachinius/Command/Tests</directory>
-        </exclude>
+        <directory suffix=".php">../src/Nachinius/Command/Components</directory>
       </whitelist>
     </filter>
 
