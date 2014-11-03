@@ -55,7 +55,7 @@ class Cache
     public function keyToFilename($key)
     {
         $parts = explode('/', $key);
-        if (count($parts) > 1) {
+        if (count($parts) > 0) {
             $last = array_pop($parts);
             $last = $last . '-';
         } else {
