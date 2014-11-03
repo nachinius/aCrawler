@@ -45,7 +45,7 @@ class CacheTest extends PHPUnit_Framework_TestCase
         return array(
             array(
                 '123',
-                md5('123')
+                '123-'.md5('123')
             ),
             array(
                 'a/este',
