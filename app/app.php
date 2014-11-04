@@ -1,18 +1,26 @@
 #!/usr/bin/env php
 <?php
+require_once __DIR__ . '/bootstrap.php';
 
-require_once __DIR__.'/bootstrap.php';
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Reference;
 
-// Create console application and add commands
-use Symfony\Component\Console\Application;
-use Nachinius\Command\GreetCommand;
-use Nachinius\Command\LocationCommand;
-use Nachinius\Command\Components\Cache;
-use Symfony\Component\Filesystem\Filesystem;
+// Using container to configure
 
-$fs = new Filesystem();
-$cache = new Cache(__DIR__.'/../data', $fs);
+$container = new ContainerBuilder();
 
-$application = new Application();
-$application->add(new LocationCommand($cache));
-$application->run();
+// cache
+$container->register('fs', 'Symfony\\Component\\Filesystem\\Filesystem');
+$container->register('cache', 'Nachinius\\Command\\Components\\Cache')
+    ->addArgument(__DIR__ . '/../data')
+    ->addArgument(new Reference('fs'));
+
+// Commands as services
+$container->register('LocationCommand', 'Nachinius\\Command\\LocationCommand')->addArgument(new Reference('cache'));
+
+// app as service
+$container->register('app','Symfony\\Component\\Console\\Application')
+// register the command in the app
+->addMethodCall('add',array(new Reference('LocationCommand')));
+
+$application = $container->get('app')->run();
