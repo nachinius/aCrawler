@@ -1,0 +1,14 @@
+services:
+  fs:
+    class: Symfony\Component\Filesystem\Filesystem
+  cache:
+    class: Nachinius\Command\Components\Cache
+    arguments: ["%app.root_dir%/../data","@fs"]
+  LocationCommand:
+    class: Nachinius\Command\LocationCommand
+    arguments: ["@cache"]
+  app:
+    class: Symfony\Component\Console\Application
+    calls:
+      - [ add, ["@LocationCommand"]]
+
