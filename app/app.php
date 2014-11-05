@@ -6,12 +6,29 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Config\ConfigCache;
+use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
 
-// Using container to configure
+$isDebug = false;
 
-$container = new ContainerBuilder();
-$container->setParameter('app.root_dir', __DIR__);
-$loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/config'));
-$loader->load('services.yml');
+$file = __DIR__ . '/../cache/container.php';
+$containerConfigCache = new ConfigCache($file, $isDebug);
 
-$application = $container->get('app')->run();
+if (!$containerConfigCache->isFresh()) {
+    $containerBuilder = new ContainerBuilder();
+    $containerBuilder->setParameter('app.root_dir', __DIR__);
+    $loader = new YamlFileLoader($containerBuilder, new FileLocator(__DIR__ . '/config'));
+    $loader->load('services.yml');
+    
+    $containerBuilder->compile();
+    
+    $dumper = new PhpDumper($containerBuilder);
+    $containerConfigCache->write($dumper->dump(array(
+        'class' => 'CachedContainerBuilder'
+    )), $containerBuilder->getResources());
+}
+
+require_once $file;
+$container = new CachedContainerBuilder();
+$container->get('app')->run();
+
