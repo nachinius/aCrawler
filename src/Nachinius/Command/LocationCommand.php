@@ -15,18 +15,23 @@ use Symfony\Component\DomCrawler\Crawler;
 use Nachinius\Command\Components\HtmlGetter;
 use Nachinius\Command\Components\HttpGetter;
 use Nachinius\Command\Components\Cache;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class LocationCommand extends Command implements ContainerAwareInterface
+class LocationCommand extends Command 
 {
+    
+    /**
+     * @var HtmlGetter
+     */
+    private $htmlGetter;
 
     /**
-     * (non-PHPdoc)
-     * @see \Symfony\Component\DependencyInjection\ContainerAwareInterface::setContainer()
+     * 
+     * @param HtmlGetter $htmlGetter
      */
-    public function setContainer(ContainerInterface $container = NULL) {
-        $this->container = $container;
+    public function __construct(HtmlGetter $htmlGetter) {
+        
+        $this->htmlGetter = $htmlGetter;
+        parent::__construct();
     }
 
     protected function configure()
@@ -46,10 +51,8 @@ class LocationCommand extends Command implements ContainerAwareInterface
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $htmlGetter = $this->container->get('htmlGetter');
-        
         // get html content
-        $html = $htmlGetter->execute($input->getArgument('url'));
+        $html = $this->htmlGetter->execute($input->getArgument('url'));
         
         $output->writeln($html);
     }

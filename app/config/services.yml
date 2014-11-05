@@ -10,8 +10,7 @@ services:
     arguments: ["%app.root_dir%/../data","@fs"]
   LocationCommand:
     class: Nachinius\Command\LocationCommand
-    calls:
-      - [ setContainer, ["@service_container"]]
+    arguments: ["@HtmlGetter"]
   HttpGetter:
     class: Nachinius\Command\Components\HttpGetter
   HtmlGetter:

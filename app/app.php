@@ -9,7 +9,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\ConfigCache;
 use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
 
-$isDebug = false;
+$isDebug = true;
 
 $file = __DIR__ . '/../cache/container.php';
 $containerConfigCache = new ConfigCache($file, $isDebug);
