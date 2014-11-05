@@ -5,3 +5,4 @@ vendor/
 data/
 coverage/
 docs/
+cache/

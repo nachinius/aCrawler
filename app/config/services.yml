@@ -1,4 +1,8 @@
 services:
+  app:
+    class: Symfony\Component\Console\Application
+    calls:
+      - [ add, ["@LocationCommand"]]
   fs:
     class: Symfony\Component\Filesystem\Filesystem
   cache:
@@ -6,9 +10,10 @@ services:
     arguments: ["%app.root_dir%/../data","@fs"]
   LocationCommand:
     class: Nachinius\Command\LocationCommand
-    arguments: ["@cache"]
-  app:
-    class: Symfony\Component\Console\Application
     calls:
-      - [ add, ["@LocationCommand"]]
-
+      - [ setContainer, ["@service_container"]]
+  HttpGetter:
+    class: Nachinius\Command\Components\HttpGetter
+  HtmlGetter:
+    class: Nachinius\Command\Components\HtmlGetter
+    arguments: ["@HttpGetter","@cache"]
