@@ -13,22 +13,23 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Nachinius\Command\Components\HtmlGetter;
 
-class LocationCommand extends Command 
+class LocationCommand extends Command
 {
-    
+
     /**
+     *
      * @var HtmlGetter
      */
     private $htmlGetter;
 
     private $urlComponents;
-    
+
     /**
-     * 
-     * @param HtmlGetter $htmlGetter
+     *
+     * @param HtmlGetter $htmlGetter            
      */
-    public function __construct(HtmlGetter $htmlGetter) {
-        
+    public function __construct(HtmlGetter $htmlGetter)
+    {
         $this->htmlGetter = $htmlGetter;
         parent::__construct();
     }
@@ -46,31 +47,34 @@ class LocationCommand extends Command
 //         )
         ;;
 
+        ;
+        
+        ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        
         $url = $input->getArgument('url');
         $url = $this->sanitize($url);
         
-        $output->writeln(print_r($this->urlComponents,1));
+        $output->writeln(print_r($this->urlComponents, 1));
         // get html content
         $html = $this->htmlGetter->execute($url);
         
-        $output->writeln(substr($html,0,1000));
+        $output->writeln(substr($html, 0, 1000));
     }
-    
-    public function sanitize($url) {
 
+    public function sanitize($url)
+    {
         $str = '';
-        if($this->urlComponents = parse_url($url)) {
-            $str = $this->urlComponents['host'];
-            if(array_key_exists('path', $this->urlComponents)) {
+        if ($this->urlComponents = parse_url($url)) {
+            if (array_key_exists('host', $this->urlComponents)) {
+                $str = $this->urlComponents['host'];
+            }
+            if (array_key_exists('path', $this->urlComponents)) {
                 $str .= $this->urlComponents['path'];
             }
         }
         return $str;
     }
-    
 }

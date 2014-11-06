@@ -1,10 +1,10 @@
 <?php
 use \PHPUnit_Framework_TestCase;
-use Nachinius\Command\Components\Cache;
+use Nachinius\Command\Components\SimpleFSCache;
 use org\bovigo\vfs\vfsStream;
 use Symfony\Component\Filesystem\Filesystem;
 
-class CacheTest extends PHPUnit_Framework_TestCase
+class SimpleFSCacheTest extends PHPUnit_Framework_TestCase
 {
 
     private $root;
@@ -18,7 +18,7 @@ class CacheTest extends PHPUnit_Framework_TestCase
         $this->root = vfsStream::setup('root');
         $this->dir = vfsStream::url('root/data');
         $fs = new Filesystem();
-        $this->cache = new Cache($this->dir, $fs);
+        $this->cache = new SimpleFSCache($this->dir, $fs);
     }
 
     public function tearDown()

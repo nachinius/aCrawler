@@ -2,6 +2,7 @@
 namespace Nachinius\Command\Components;
 
 use Symfony\Component\Filesystem\Filesystem;
+use Nachinius\Command\Components\CacheInterface;
 
 /**
  * Cache to the filesystem, one key per filename.
@@ -9,7 +10,7 @@ use Symfony\Component\Filesystem\Filesystem;
  * @author ignacio
  *        
  */
-class Cache
+class SimpleFSCache implements CacheInterface
 {
 
     /**

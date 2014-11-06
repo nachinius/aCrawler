@@ -31,13 +31,8 @@ HTML;
     }
     
     private function getMockCache() {
-        return  // mock the Cache
-        $mockCache = $this->getMockBuilder('cache')
-            ->setMethods(array(
-            'set',
-            'get'
-        ))
-            ->getMock();
+        
+        $mockCache = $this->getMock('Nachinius\Command\Components\CacheInterface');
         
         return $mockCache;
     }
