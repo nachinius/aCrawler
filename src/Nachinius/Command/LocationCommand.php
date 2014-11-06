@@ -9,7 +9,6 @@ namespace Nachinius\Command;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Nachinius\Command\Components\HtmlGetter;
 
@@ -24,19 +23,22 @@ class LocationCommand extends Command
 
     private $urlComponents;
 
+    private $_name;
+    
     /**
      *
      * @param HtmlGetter $htmlGetter            
      */
-    public function __construct(HtmlGetter $htmlGetter)
+    public function __construct(HtmlGetter $htmlGetter, $name = 'get')
     {
+        $this->_name = $name;
         $this->htmlGetter = $htmlGetter;
         parent::__construct();
     }
 
     protected function configure()
     {
-        $this->setName('get')
+        $this->setName($this->_name)
             ->setDescription('Get an url')
             ->addArgument('url', InputArgument::REQUIRED, 'URL')
 //         ->addOption(

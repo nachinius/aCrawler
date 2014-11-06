@@ -15,12 +15,13 @@ interface CacheInterface {
      * 
      * @param string $key
      * @param string $content
+     * @return void
      */
     public function set($key, $content);
     
     /**
      * @param string $key
-     * @return Content of the Cache for $key if exists. False otherwise.
+     * @return string of the Cache for $key if exists. False otherwise.
      */
     public function get($key);
 }
