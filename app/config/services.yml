@@ -8,11 +8,11 @@ services:
     arguments: ["@HtmlGetter"]
   HtmlGetter:
     class: Nachinius\Command\Components\HtmlGetter
-    arguments: ["@HttpGetter","@cache"]
+    arguments: ["@HttpGetter","@SimpleFSCache"]
   HttpGetter:
     class: Nachinius\Command\Components\HttpGetter
-  cache:
-    class: Nachinius\Command\Components\Cache
+  SimpleFSCache:
+    class: Nachinius\Command\Components\SimpleFSCache
     arguments: ["%app.root_dir%/../data","@fs"]
   fs:
     class: Symfony\Component\Filesystem\Filesystem
