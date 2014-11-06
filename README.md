@@ -17,7 +17,7 @@ A playing project (no clear objective), except to quickly try some technologies.
 
 ### Run 
 
-    php app/app.php
+    php app/app.php get http://www.google.com
 
 ### Test
 

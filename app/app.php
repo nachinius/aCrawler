@@ -15,6 +15,7 @@ $file = __DIR__ . '/../cache/container.php';
 $containerConfigCache = new ConfigCache($file, $isDebug);
 
 if (!$containerConfigCache->isFresh()) {
+    echo 'Rebuilding resources'.PHP_EOL;
     $containerBuilder = new ContainerBuilder();
     $containerBuilder->setParameter('app.root_dir', __DIR__);
     $loader = new YamlFileLoader($containerBuilder, new FileLocator(__DIR__ . '/config'));

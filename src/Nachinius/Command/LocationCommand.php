@@ -11,10 +11,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\DomCrawler\Crawler;
 use Nachinius\Command\Components\HtmlGetter;
-use Nachinius\Command\Components\HttpGetter;
-use Nachinius\Command\Components\Cache;
 
 class LocationCommand extends Command 
 {
@@ -24,6 +21,8 @@ class LocationCommand extends Command
      */
     private $htmlGetter;
 
+    private $urlComponents;
+    
     /**
      * 
      * @param HtmlGetter $htmlGetter
@@ -51,10 +50,27 @@ class LocationCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        // get html content
-        $html = $this->htmlGetter->execute($input->getArgument('url'));
         
-        $output->writeln($html);
+        $url = $input->getArgument('url');
+        $url = $this->sanitize($url);
+        
+        $output->writeln(print_r($this->urlComponents,1));
+        // get html content
+        $html = $this->htmlGetter->execute($url);
+        
+        $output->writeln(substr($html,0,1000));
+    }
+    
+    public function sanitize($url) {
+
+        $str = '';
+        if($this->urlComponents = parse_url($url)) {
+            $str = $this->urlComponents['host'];
+            if(array_key_exists('path', $this->urlComponents)) {
+                $str .= $this->urlComponents['path'];
+            }
+        }
+        return $str;
     }
     
 }

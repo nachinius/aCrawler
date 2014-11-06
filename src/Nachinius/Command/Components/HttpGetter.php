@@ -10,7 +10,6 @@ namespace Nachinius\Command\Components;
 class HttpGetter
 {
 
-    
     public function getWithCurl($url)
     {
         $ch = curl_init();
@@ -29,6 +28,6 @@ class HttpGetter
     }
     
     public function get($url) {
-        return $this->getWithFopen($url);
+        return $this->getWithCurl($url);
     }
 }
