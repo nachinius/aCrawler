@@ -3,7 +3,6 @@ namespace Nachinius\Command\Components;
 
 use Nachinius\Command\Components\CacheInterface;
 use Zend\Cache\Storage\StorageInterface;
-
 /**
  * Adapt a ZendCache into this system
  */
