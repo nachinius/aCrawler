@@ -42,4 +42,11 @@ class ZendCacheAdapterTest extends PHPUnit_Framework_TestCase {
         // verify
         $this->assertEquals($contentReceived, $content);
     }
+    
+    public function testFlush() {
+        // Stop here and mark this test as incomplete.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
+    }
 }
