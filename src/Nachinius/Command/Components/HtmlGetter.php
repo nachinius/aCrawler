@@ -3,6 +3,7 @@
 namespace Nachinius\Command\Components;
 
 use Nachinius\Command\Components\CacheInterface;
+
 /**
  * Obtains a text given an URI.
  * 
@@ -16,20 +17,23 @@ use Nachinius\Command\Components\CacheInterface;
  */
 class HtmlGetter {
     
-    private $cache = NULL;
-    
     /**
      * 
      * @var CacheInterface
      */
-    private $getter = NULL;
+    private $cache = NULL;
+
+    /**
+     * @var HttpGetter
+     */
+    private $getter;
     
     /**
      * 
-     * @param getter $getter (must implement ->get($key))
-     * @param Cache $cache (optional) (must implement ->set($key, content) and ->get($key)
+     * @param HttpGetter $getter (must implement ->get($key))
+     * @param CacheInterface $cache (optional) (must implement ->set($key, content) and ->get($key)
      */
-    public function __construct($getter, CacheInterface $cache = NULL) {
+    public function __construct(HttpGetter $getter, CacheInterface $cache = NULL) {
         $this->getter = $getter;
         $this->cache = $cache;
     }
@@ -61,6 +65,7 @@ class HtmlGetter {
         } catch (\Exception $e) {
             return '';
         }
+        
     }
     
     /**

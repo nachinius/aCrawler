@@ -65,6 +65,9 @@ class SimpleFSCache implements CacheInterface
         return $last . md5($key);
     }
 
+    /**
+     * @param string $key
+     */
     public function getFullPath($key)
     {
         return $this->workspace . DIRECTORY_SEPARATOR . $this->keyToFilename($key);

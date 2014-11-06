@@ -3,6 +3,8 @@ services:
     class: Symfony\Component\Console\Application
     calls:
       - [ add, ["@LocationCommand"]]
+      - [ add, ["@LocationCommandWithZendCache"]]
+
   LocationCommand:
     class: Nachinius\Command\LocationCommand
     arguments: ["@HtmlGetter"]
@@ -16,3 +18,18 @@ services:
     arguments: ["%app.root_dir%/../data","@fs"]
   fs:
     class: Symfony\Component\Filesystem\Filesystem
+  
+  LocationCommandWithZendCache:
+    class: Nachinius\Command\LocationCommand
+    arguments: ["@HtmlGetterWithZendFileCache", get2]
+  HtmlGetterWithZendFileCache:
+    class: Nachinius\Command\Components\HtmlGetter
+    arguments: ["@HttpGetter","@zendCacheAdapter"]
+  zendCacheAdapter:
+    class: Nachinius\Command\Components\ZendCacheAdapter
+    arguments: [ "@zendCache"]
+  zendCache: 
+    class: Zend\Cache\Storage\Adapter\Filesystem
+    calls:
+      - [ setOptions,  [ {"cache_dir": "%app.root_dir%/../zendCacheData", "key_pattern": /^[a-z0-9_\+\-.]*$/Di } ]]
+ 
