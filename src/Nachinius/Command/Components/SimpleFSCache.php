@@ -47,6 +47,10 @@ class SimpleFSCache implements CacheInterface
             $this->fs->mkdir($this->workspace, 0700);
         }
     }
+    
+    public function flush() {
+        $this->fs->remove($this->workspace);
+    }
 
     /**
      * Transform the $key to a filename.

@@ -2,11 +2,12 @@
 namespace Nachinius\Command\Components;
 
 use Nachinius\Command\Components\CacheInterface;
+use Zend\Cache\Storage\FlushableInterface;
 use Zend\Cache\Storage\StorageInterface;
 /**
  * Adapt a ZendCache into this system
  */
-class ZendCacheAdapter implements CacheInterface
+class ZendCacheAdapter implements CacheInterface, FlushableInterface
 {
     /**
      * 
@@ -27,5 +28,11 @@ class ZendCacheAdapter implements CacheInterface
     public function set($key, $content)
     {
         $this->cache->setItem($key, $content);
+    }
+    
+    public function flush() {
+        if($this->cache instanceOf FlushableInterface) {
+            $this->cache->flush();
+        }
     }
 }

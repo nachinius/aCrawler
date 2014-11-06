@@ -65,7 +65,6 @@ class HtmlGetter {
         } catch (\Exception $e) {
             return '';
         }
-        
     }
     
     /**

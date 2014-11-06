@@ -12,6 +12,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Nachinius\Command\Components\HtmlGetter;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\DependencyInjection\Container;
 
 class LocationCommand extends Command
 {
@@ -30,10 +31,11 @@ class LocationCommand extends Command
      *
      * @param HtmlGetter $htmlGetter            
      */
-    public function __construct(HtmlGetter $htmlGetter, $name = 'get')
+    public function __construct(HtmlGetter $htmlGetter, $name = 'get', Container $container = NULL)
     {
         $this->_name = $name;
         $this->htmlGetter = $htmlGetter;
+        $this->container = $container;
         parent::__construct();
     }
 
@@ -48,6 +50,9 @@ class LocationCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        if($input->getOption('flush')) {
+            $this->container->get('cache')->flush();
+        }
         $url = $input->getArgument('url');
         $url = $this->sanitize($url);
         

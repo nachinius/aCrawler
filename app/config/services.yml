@@ -6,12 +6,14 @@ services:
 
   LocationCommand:
     class: Nachinius\Command\LocationCommand
-    arguments: ["@HtmlGetter"]
+    arguments: ["@HtmlGetter","get","@service_container"]
   HtmlGetter:
     class: Nachinius\Command\Components\HtmlGetter
-    arguments: ["@HttpGetter","@zendCacheAdapter"]
+    arguments: ["@HttpGetter","@cache"]
   HttpGetter:
     class: Nachinius\Command\Components\HttpGetter
+  cache:
+    alias: zendCacheAdapter
 
 # using an almost trivial cache
   SimpleFSCache:
@@ -29,9 +31,3 @@ services:
     calls:
       - [ setOptions,  [ {"cache_dir": "%app.root_dir%/../cache/zend-cache-fs", "key_pattern": /^[a-z0-9_\+\-.]*$/Di } ]]
  
-  cleanZendCache:
-    class: Zend\Cache\Storage\Adapter\Filesystem
-    calls:
-      - [ setOptions,  [ {"cache_dir": "%app.root_dir%/../cache/zend-cache-fs" } ] ]
-      - [ flush ]
-      

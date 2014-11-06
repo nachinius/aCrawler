@@ -24,4 +24,9 @@ interface CacheInterface {
      * @return string of the Cache for $key if exists. False otherwise.
      */
     public function get($key);
+    
+    /**
+     * Flush all the cache
+     */
+    public function flush();
 }
