@@ -3,33 +3,35 @@ services:
     class: Symfony\Component\Console\Application
     calls:
       - [ add, ["@LocationCommand"]]
-      - [ add, ["@LocationCommandWithZendCache"]]
 
   LocationCommand:
     class: Nachinius\Command\LocationCommand
     arguments: ["@HtmlGetter"]
   HtmlGetter:
     class: Nachinius\Command\Components\HtmlGetter
-    arguments: ["@HttpGetter","@SimpleFSCache"]
+    arguments: ["@HttpGetter","@zendCacheAdapter"]
   HttpGetter:
     class: Nachinius\Command\Components\HttpGetter
+
+# using an almost trivial cache
   SimpleFSCache:
     class: Nachinius\Command\Components\SimpleFSCache
     arguments: ["%app.root_dir%/../data","@fs"]
   fs:
     class: Symfony\Component\Filesystem\Filesystem
   
-  LocationCommandWithZendCache:
-    class: Nachinius\Command\LocationCommand
-    arguments: ["@HtmlGetterWithZendFileCache", get2]
-  HtmlGetterWithZendFileCache:
-    class: Nachinius\Command\Components\HtmlGetter
-    arguments: ["@HttpGetter","@zendCacheAdapter"]
+# using the zend cache filesystem
   zendCacheAdapter:
     class: Nachinius\Command\Components\ZendCacheAdapter
     arguments: [ "@zendCache"]
   zendCache: 
     class: Zend\Cache\Storage\Adapter\Filesystem
     calls:
-      - [ setOptions,  [ {"cache_dir": "%app.root_dir%/../zendCacheData", "key_pattern": /^[a-z0-9_\+\-.]*$/Di } ]]
+      - [ setOptions,  [ {"cache_dir": "%app.root_dir%/../cache/zend-cache-fs", "key_pattern": /^[a-z0-9_\+\-.]*$/Di } ]]
  
+  cleanZendCache:
+    class: Zend\Cache\Storage\Adapter\Filesystem
+    calls:
+      - [ setOptions,  [ {"cache_dir": "%app.root_dir%/../cache/zend-cache-fs" } ] ]
+      - [ flush ]
+      

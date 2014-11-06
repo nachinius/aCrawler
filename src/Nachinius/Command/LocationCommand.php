@@ -11,6 +11,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Nachinius\Command\Components\HtmlGetter;
+use Symfony\Component\Console\Input\InputOption;
 
 class LocationCommand extends Command
 {
@@ -24,7 +25,7 @@ class LocationCommand extends Command
     private $urlComponents;
 
     private $_name;
-    
+
     /**
      *
      * @param HtmlGetter $htmlGetter            
@@ -41,16 +42,7 @@ class LocationCommand extends Command
         $this->setName($this->_name)
             ->setDescription('Get an url')
             ->addArgument('url', InputArgument::REQUIRED, 'URL')
-//         ->addOption(
-//             'yell',
-//             null,
-//             InputOption::VALUE_NONE,
-//             'If set, the task will yell in uppercase letters'
-//         )
-        ;;
-
-        ;
-        
+            ->addOption('flush', null, InputOption::VALUE_NONE, 'If set, the cache will be wipe it out before use');
         ;
     }
 

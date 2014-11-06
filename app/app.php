@@ -11,7 +11,16 @@ use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
 
 $isDebug = true;
 
-$file = __DIR__ . '/../cache/container.php';
+$cacheDir = __DIR__.'/../cache';
+if(!file_exists($cacheDir)) {
+    mkdir($cacheDir);
+}
+$zendCacheDir = $cacheDir.'/zend-cache-fs';
+if(!file_exists($zendCacheDir)) {
+    mkdir($zendCacheDir);
+}
+
+$file = $cacheDir.'/container.php';
 $containerConfigCache = new ConfigCache($file, $isDebug);
 
 if (!$containerConfigCache->isFresh()) {
