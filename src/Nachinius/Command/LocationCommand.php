@@ -28,15 +28,16 @@ class LocationCommand extends Command
      *
      * @param HtmlGetter $htmlGetter            
      */
-    public function __construct(HtmlGetter $htmlGetter)
+    public function __construct(HtmlGetter $htmlGetter, $name = 'get')
     {
+        $this->name = $name;
         $this->htmlGetter = $htmlGetter;
         parent::__construct();
     }
 
     protected function configure()
     {
-        $this->setName('get')
+        $this->setName($this->name)
             ->setDescription('Get an url')
             ->addArgument('url', InputArgument::REQUIRED, 'URL')
 //         ->addOption(
