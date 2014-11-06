@@ -21,11 +21,7 @@ HTML;
 
     private function getMockHttpGetter()
     {
-        $mock = $this->getMockBuilder('httpGetter')
-            ->setMethods(array(
-            'get'
-        ))
-            ->getMock();
+        $mock = $this->getMock('Nachinius\Command\Components\HttpGetter');
         
         return $mock;
     }
@@ -46,7 +42,7 @@ HTML;
         
         // prepare mock
         $mock = $this->getMockHttpGetter();
-        $mock->method('get')
+        $mock->expects($this->any())->method('get')
             ->with($this->equalTo($url))
             ->willReturn($text);
         

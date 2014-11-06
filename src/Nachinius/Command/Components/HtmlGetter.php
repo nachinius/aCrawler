@@ -33,7 +33,7 @@ class HtmlGetter {
      * @param HttpGetter $getter (must implement ->get($key))
      * @param CacheInterface $cache (optional) (must implement ->set($key, content) and ->get($key)
      */
-    public function __construct(HttpGetter $getter, CacheInterface $cache = NULL) {
+    public function __construct(HttpGetter $getter = NULL, CacheInterface $cache = NULL) {
         $this->getter = $getter;
         $this->cache = $cache;
     }
