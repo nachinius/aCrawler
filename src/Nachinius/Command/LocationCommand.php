@@ -14,6 +14,10 @@ use Nachinius\Command\Components\HtmlGetter;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\DependencyInjection\Container;
 
+/**
+ * A console command for symfony console compoenent
+ * that can retrieive the content of a page
+ */
 class LocationCommand extends Command
 {
 
@@ -23,19 +27,30 @@ class LocationCommand extends Command
      */
     private $htmlGetter;
 
-    private $urlComponents;
-
+    /**
+     * Name of the console command
+     * 
+     * @param
+     *            string
+     */
     private $_name;
 
     /**
      *
      * @param HtmlGetter $htmlGetter            
+     * @param string $name
+     *            Name of the console command
+     * @param Container $container
+     *            DI container
      */
     public function __construct(HtmlGetter $htmlGetter, $name = 'get', Container $container = NULL)
     {
         $this->_name = $name;
         $this->htmlGetter = $htmlGetter;
         $this->container = $container;
+        $this->flusher = function() use ($this->container) {
+            $this->container->get('cache')->flush();
+        }
         parent::__construct();
     }
 
@@ -50,8 +65,9 @@ class LocationCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        if($input->getOption('flush')) {
-            $this->container->get('cache')->flush();
+        // if we want to flush all the cache's content
+        if ($input->getOption('flush')) {
+            $this->flusher();
         }
         $url = $input->getArgument('url');
         $url = $this->sanitize($url);
