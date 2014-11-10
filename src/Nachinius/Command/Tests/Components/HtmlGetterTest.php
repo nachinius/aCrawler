@@ -120,5 +120,4 @@ HTML;
         
         $this->assertEquals($text, $html, 'Html is not correct when cache throws exception');
     }
-    
 }

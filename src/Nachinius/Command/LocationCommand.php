@@ -43,14 +43,10 @@ class LocationCommand extends Command
      * @param Container $container
      *            DI container
      */
-    public function __construct(HtmlGetter $htmlGetter, $name = 'get', Container $container = NULL)
+    public function __construct(HtmlGetter $htmlGetter, $name = 'get')
     {
         $this->_name = $name;
         $this->htmlGetter = $htmlGetter;
-        $this->container = $container;
-        $this->flusher = function() use ($this->container) {
-            $this->container->get('cache')->flush();
-        }
         parent::__construct();
     }
 
@@ -67,8 +63,9 @@ class LocationCommand extends Command
     {
         // if we want to flush all the cache's content
         if ($input->getOption('flush')) {
-            $this->flusher();
+            $this->htmlGetter->cleanCache();
         }
+        
         $url = $input->getArgument('url');
         $url = $this->sanitize($url);
         
