@@ -67,6 +67,12 @@ class HtmlGetter {
         }
     }
     
+    public function cleanCache() {
+        if(!empty($this->cache)) {
+            $this->cache->flush();
+        }
+    }
+    
     /**
      * Obtain content of $url.
      * 

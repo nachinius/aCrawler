@@ -4,25 +4,27 @@ services:
     calls:
       - [ add, ["@LocationCommand"]]
 
+  cache:
+    alias: zendCacheAdapter
+
   LocationCommand:
     class: Nachinius\Command\LocationCommand
-    arguments: ["@HtmlGetter","get","@service_container"]
+    arguments: ["@HtmlGetter","get"]
   HtmlGetter:
     class: Nachinius\Command\Components\HtmlGetter
     arguments: ["@HttpGetter","@cache"]
   HttpGetter:
     class: Nachinius\Command\Components\HttpGetter
-  cache:
-    alias: zendCacheAdapter
+    
 
-# using an almost trivial cache
+# using very simple filesystem cache
   SimpleFSCache:
     class: Nachinius\Command\Components\SimpleFSCache
     arguments: ["%app.root_dir%/../data","@fs"]
   fs:
     class: Symfony\Component\Filesystem\Filesystem
   
-# using the zend cache filesystem
+# zend cache filesystem
   zendCacheAdapter:
     class: Nachinius\Command\Components\ZendCacheAdapter
     arguments: [ "@zendCache"]

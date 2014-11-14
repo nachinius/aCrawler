@@ -9,17 +9,19 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\ConfigCache;
 use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
 
-$isDebug = true;
-
+// Define Directory for PHP cache
 $cacheDir = __DIR__.'/../cache';
 if(!file_exists($cacheDir)) {
     mkdir($cacheDir);
 }
+
+// Define Directory for ZendCache
 $zendCacheDir = $cacheDir.'/zend-cache-fs';
 if(!file_exists($zendCacheDir)) {
     mkdir($zendCacheDir);
 }
 
+$isDebug = true;
 $file = $cacheDir.'/container.php';
 $containerConfigCache = new ConfigCache($file, $isDebug);
 
